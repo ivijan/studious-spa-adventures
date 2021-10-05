@@ -2,10 +2,13 @@
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { UserData } from '../interfaces/user.interface';
+import { Role } from '../interfaces/role.enum';
 
-const users = [
-    { id: 1, username: 'john.bravo@admin.com', password: 'nimda123', firstName: 'John', lastName: 'Bravo', role: 'admin'}, 
-    { id: 2, username: 'charlie.smith@merchant.com', password: 'nimda321', firstName: 'Charlie', lastName: 'Smith', role: 'user' }
+const users: UserData[] = [
+    { id: 1, username: 'john.bravo@admin.com', password: 'nimda', firstName: 'John', lastName: 'Bravo', role: Role.admin },
+    { id: 2, username: 'charlie.smith@user.com', password: 'nimda', firstName: 'Charlie', lastName: 'Smith', role: Role.user },
+    { id: 2, username: 'simone.delta@client.com', password: 'nimda', firstName: 'Simone', lastName: 'Delta' }
 ];
 
 @Injectable()
@@ -29,7 +32,7 @@ export class MockedBackendInterceptor implements HttpInterceptor {
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
-            }    
+            }
         }
 
         // route functions

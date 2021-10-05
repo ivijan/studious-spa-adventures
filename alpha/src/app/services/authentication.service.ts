@@ -12,12 +12,16 @@ export class AuthenticationService {
     public currentUser: Observable<User | null>;
 
     constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User | null>(JSON.parse(localStorage.getItem('currentUser') || 'null'));
+        this.currentUserSubject = new BehaviorSubject<User | null>(this.getLoggedUser());
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User | null {
         return this.currentUserSubject.value;
+    }
+
+    getLoggedUser(): User {
+        return JSON.parse(localStorage.getItem('currentUser') || 'null');
     }
 
     login(username: string, password: string) {

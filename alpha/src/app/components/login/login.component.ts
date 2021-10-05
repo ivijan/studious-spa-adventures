@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Role } from 'src/app/interfaces/role.enum';
+import { environment } from 'src/environments/environment';
 
 
 @Component({ templateUrl: 'login.component.html' })
@@ -17,11 +19,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService
-    ) { 
-        // redirect to home page if logged in
-        if (this.authenticationService.currentUserValue) { 
-            this.router.navigate(['/']);
-        }
+    ) {
+        this.redirectToRole();
     }
 
     ngOnInit() {
@@ -47,14 +46,32 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe({
                 next: () => {
-                    // get return url from route parameters or default to '/'
+                    // redirect to role url, or get return url from route parameters, or default to '/'
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                    this.router.navigate([returnUrl]);
+                    this.redirectToRole(returnUrl);
                 },
                 error: error => {
                     this.error = error;
                     this.loading = false;
                 }
             });
+    }
+
+    redirectToRole(redirectTo = '/') {
+        // if logged, redirect based on user role
+        const currentUser = this.authenticationService.currentUserValue
+        if (currentUser) {
+            switch (currentUser?.role) {
+                case Role.admin:
+                    window.location.href = environment.adminAppUrl;
+                    break;
+                case Role.user:
+                    window.location.href = environment.userAppUrl;
+                    break;
+                default:
+                    this.router.navigate([redirectTo]);
+                    break;
+            }
+        }
     }
 }

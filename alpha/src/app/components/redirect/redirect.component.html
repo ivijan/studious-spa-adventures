@@ -1,0 +1,10 @@
+<div class="card mt-4">
+    <h4 class="card-header">You're logged in with wrong role or credentials!</h4>
+    <div class="card-body">
+        <h6>Users data:</h6>
+        <ul *ngIf="currentUser">
+            <li>User: {{currentUser.firstName}} {{currentUser.lastName}}</li>
+            <li>Role: {{currentUser.role || 'CLIENT'}}</li>
+        </ul>
+    </div>
+</div>

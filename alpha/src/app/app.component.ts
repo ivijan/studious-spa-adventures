@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { User } from './interfaces/user.interface';
 import { AuthenticationService } from './services/authentication.service';
 
@@ -8,18 +8,17 @@ import { AuthenticationService } from './services/authentication.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   currentUser!: User | null;
 
   constructor(
-      private router: Router,
-      private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService
   ) {
-      this.authenticationService.currentUser.subscribe((x: User | null) => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe((x: User | null) => this.currentUser = x);
   }
-
-  logout() {
-      this.authenticationService.logout();
-      this.router.navigate(['/login']);
+  
+  ngOnInit() {
+    const user = this.authenticationService.getLoggedUser();
+    window.parent.postMessage({"user": user}, environment.adminAppUrl);
   }
 }
