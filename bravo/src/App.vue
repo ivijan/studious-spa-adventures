@@ -1,11 +1,18 @@
 <template>
-  <div v-if="loggedUser.role === 'admin'" class="card mt-4">
-    <h4 class="card-header">Congrats, you're logged in</h4>
-    <div class="card-body">
-      <ul>
-        <li>User: {{ loggedUser.firstName }} {{ loggedUser.lastName }}</li>
-        <li>Role: {{ loggedUser.role }}</li>
-      </ul>
+  <div v-if="loggedUser.role === 'admin'">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" :href="alphaUrl + '/logout'">Logout</a>
+      </div>
+    </nav>
+    <div class="card mt-4">
+      <h4 class="card-header">Congrats, you're logged in</h4>
+      <div class="card-body">
+        <ul>
+          <li>User: {{ loggedUser.firstName }} {{ loggedUser.lastName }}</li>
+          <li>Role: {{ loggedUser.role }}</li>
+        </ul>
+      </div>
     </div>
   </div>
   <div style="display: none">

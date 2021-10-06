@@ -20,5 +20,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     const user = this.authenticationService.getLoggedUser();
     window.parent.postMessage({"user": user}, environment.adminAppUrl);
+    window.parent.postMessage({"user": user}, environment.userAppUrl);
   }
 }

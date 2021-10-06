@@ -25,13 +25,13 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
+            username: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
     }
 
     // convenience getter for easy access to form fields
-    get f() { return this.loginForm.controls; }
+    get controls() { return this.loginForm.controls; }
 
     onSubmit() {
         this.submitted = true;
@@ -42,13 +42,17 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
+        this.authenticationService.login(this.controls.username.value, this.controls.password.value)
             .pipe(first())
             .subscribe({
                 next: () => {
                     // redirect to role url, or get return url from route parameters, or default to '/'
                     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                    this.redirectToRole(returnUrl);
+                    if (this.route.snapshot.queryParams['returnUrl']) {
+                        this.router.navigate([returnUrl]);
+                    } else {
+                        this.redirectToRole(returnUrl);
+                    }
                 },
                 error: error => {
                     this.error = error;
