@@ -22,6 +22,12 @@ const routes: Routes = [
   {
     path: 'user',
     component: HomeComponent,
+    data: { view: 'details' },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'users',
+    component: HomeComponent,
     canActivate: [AuthGuard],
   },
   { path: 'login', component: LoginComponent },

@@ -9,12 +9,12 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  currentUser!: User | null;
+  currentUser!: User | undefined;
 
   constructor(
     private authenticationService: AuthenticationService
   ) {
-    this.authenticationService.currentUser.subscribe((x: User | null) => this.currentUser = x);
+    this.authenticationService.currentUser.subscribe((x: User | undefined) => this.currentUser = x);
   }
   
   ngOnInit() {

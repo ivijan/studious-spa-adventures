@@ -1,7 +1,7 @@
 ﻿<div class="card mt-4">
     <h4 class="card-header">You're logged in!</h4>
     <div class="card-body">
-        <h6>Users data:</h6>
+        <h6>{{ view === 'list' ? 'List of all users:' : 'User details:' }}</h6>
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
         <ul *ngIf="users">
             <li *ngFor="let user of users">{{user.firstName}} {{user.lastName}} ({{user.role || 'ROLE UNDEFINED'}})</li>

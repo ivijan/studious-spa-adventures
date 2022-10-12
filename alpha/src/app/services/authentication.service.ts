@@ -8,15 +8,15 @@ import { User } from '../interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User | null>;
-    public currentUser: Observable<User | null>;
+    private currentUserSubject: BehaviorSubject<User | undefined>;
+    public currentUser: Observable<User | undefined>;
 
     constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User | null>(this.getLoggedUser());
+        this.currentUserSubject = new BehaviorSubject<User | undefined>(this.getLoggedUser());
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    public get currentUserValue(): User | null {
+    public get currentUserValue(): User | undefined {
         return this.currentUserSubject.value;
     }
 
@@ -37,6 +37,6 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
+        this.currentUserSubject.next(undefined);
     }
 }

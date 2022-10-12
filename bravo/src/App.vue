@@ -4,6 +4,7 @@
       <nav class="navbar navbar-expand navbar-dark bg-dark">
         <h1 class="navbar-brand">Admin Role Dashboard</h1>
         <div class="navbar-nav">
+          <a class="nav-item nav-link" :href="alphaUrl + '/user'">User Settings</a>
           <a class="nav-item nav-link" :href="alphaUrl + '/logout'">Logout</a>
         </div>
       </nav>

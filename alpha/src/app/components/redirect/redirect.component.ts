@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 
 @Component({ templateUrl: 'redirect.component.html' })
 export class RedirectComponent implements OnInit {
-    currentUser!: User | null;
+    currentUser!: User | undefined;
 
     constructor(private router: Router, private authenticationService: AuthenticationService, private activatedRoute: ActivatedRoute) { }
 
