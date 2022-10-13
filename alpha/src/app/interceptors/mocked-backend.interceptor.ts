@@ -8,7 +8,7 @@ import { Role } from '../interfaces/role.enum';
 const users: UserData[] = [
     { id: 1, username: 'john.bravo@admin.com', password: 'nimda', firstName: 'John', lastName: 'Bravo', role: Role.admin },
     { id: 2, username: 'charlie.smith@user.com', password: 'nimda', firstName: 'Charlie', lastName: 'Smith', role: Role.user },
-    { id: 2, username: 'simone.delta@client.com', password: 'nimda', firstName: 'Simone', lastName: 'Delta' }
+    { id: 3, username: 'simone.delta@client.com', password: 'nimda', firstName: 'Simone', lastName: 'Delta' }
 ];
 
 @Injectable()
